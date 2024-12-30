@@ -8,7 +8,11 @@ The goal of this project is to help new developers get their [LSPDFR](https://ww
 - Code documentation
 
 ### Installation
-You can fork/download the files, but the Visual Studio project template from [Releases](https://github.com/Rich-Dunne/LSPDFR-Plugin-Template/releases) might be easiest.  When using the project template, if the NuGet references aren't resolving properly, you can reinstall them by running `Update-Package -reinstall` in the Package Manager Console.
+You can fork/download the files, but the Visual Studio project template from [Releases](https://github.com/Rich-Dunne/LSPDFR-Plugin-Template/releases) might be easiest.  Simply drop the .zip folder into `Documents\Visual Studio <version>\Templates\ProjectTemplates\C#`.
+
+When using the project template, if the NuGet references aren't resolving properly, you can reinstall them by running `Update-Package -reinstall` in the Package Manager Console.
+
+![image](https://github.com/user-attachments/assets/0f74b3a7-4328-428e-a7e9-db7ef0d9f4f7)
 
 ### Contributing
 Issues and helpful pull requests welcome.
