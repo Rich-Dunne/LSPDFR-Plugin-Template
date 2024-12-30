@@ -8,6 +8,9 @@ namespace LSPDFR_Plugin_Template
     {
         private static string _assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
+        /// <summary>
+        /// This function is called when LSPDFR is loaded.
+        /// </summary>
         public override void Initialize()
         {
             Game.AddConsoleCommands();
@@ -15,14 +18,25 @@ namespace LSPDFR_Plugin_Template
             Functions.OnOnDutyStateChanged += OnOnDutyStateChangedHandler;
         }
 
+        /// <summary>
+        /// This function handles logic for when the player goes on and off duty.
+        /// </summary>
+        /// <param name="OnDuty"></param>
         private static void OnOnDutyStateChangedHandler(bool OnDuty)
         {
             if (OnDuty)
             {
-                Game.LogTrivial($"LSPDFR Plugin Template V{_assemblyVersion} is loaded.");
+                Game.LogTrivial($"{Assembly.GetExecutingAssembly().GetName()} V{_assemblyVersion} is loaded.");
+            }
+            else
+            {
+                Game.LogTrivial($"Player has gone off duty.");
             }
         }
 
+        /// <summary>
+        /// This function handles logic for when LSPDFR is unloaded.
+        /// </summary>
         public override void Finally()
         {
             Game.LogTrivial($"Plugin been cleaned up.");
