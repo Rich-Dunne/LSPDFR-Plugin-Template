@@ -6,7 +6,7 @@ namespace LSPDFR_Plugin_Template
 {
     public class Main : Plugin
     {
-        private static string _assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        private static readonly string _assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         /// <summary>
         /// This function is called when LSPDFR is loaded.
@@ -26,7 +26,7 @@ namespace LSPDFR_Plugin_Template
         {
             if (OnDuty)
             {
-                Game.LogTrivial($"{Assembly.GetExecutingAssembly().GetName()} V{_assemblyVersion} is loaded.");
+                Game.LogTrivial($"{Assembly.GetExecutingAssembly().GetName().Name} V{_assemblyVersion} is loaded.");
             }
             else
             {

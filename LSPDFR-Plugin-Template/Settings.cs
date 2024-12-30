@@ -9,14 +9,14 @@ namespace LSPDFR_Plugin_Template
     internal static class Settings
     {
         /// <summary>
-        /// The name of the INI file used for this plugin's settings.  This value should match the name of the embedded resource file.  Be sure to change the names from the default "TemplateSettings"
+        /// The name of the INI file used for this plugin's settings.  This value should match the name of the INI file embedded in this project.  Be sure to change the names from the default "TemplateSettings"  Common naming convention is "YourPluginName.ini"
         /// </summary>
         private const string INI_FILENAME = "TemplateSettings.ini";
         
         private static readonly string _iniLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"\Plugins\LSPDFR", INI_FILENAME);
 
         #region Settings
-        internal static bool EnableExampleFeature { get; private set; } = false;
+        internal static bool EnableExampleFeature { get; set; } = false;
         #endregion
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace LSPDFR_Plugin_Template
                 CreateINIFile();
             }
 
-            LoadSettings();
+            Load();
         }
 
         /// <summary>
@@ -76,17 +76,37 @@ namespace LSPDFR_Plugin_Template
         }
 
         /// <summary>
-        /// Parses the INI file and assigns values to relevant properties.
+        /// Parses the INI file and assigns values to their relevant properties.
         /// </summary>
-        private static void LoadSettings()
+        private static void Load()
         {
-            Game.LogTrivial($"Loading {Assembly.GetExecutingAssembly().GetName()} settings...");
+            Game.LogTrivial($"Loading {Assembly.GetExecutingAssembly().GetName().Name} settings...");
             InitializationFile ini = new InitializationFile(_iniLocation);
             ini.Create();
 
             // Features
             EnableExampleFeature = ini.ReadBoolean("Settings", "EnableExampleFeature", false);
             Game.LogTrivial($"EnableExampleFeature is {EnableExampleFeature}");
+        }
+
+        /// <summary>
+        /// Saves the current values of the Settings properties to the INI file.  This does not affect the embedded resource file.
+        /// </summary>
+        internal static void Save()
+        {
+            if (!File.Exists(_iniLocation))
+            {
+                Game.LogTrivial($"INI file missing, creating file...");
+                CreateINIFile();
+            }
+
+            Game.LogTrivial($"Saving {Assembly.GetExecutingAssembly().GetName().Name} settings...");
+            InitializationFile ini = new InitializationFile(_iniLocation);
+            ini.Create();
+
+            // Features
+            ini.Write("Settings", "EnableExampleFeature", EnableExampleFeature);
+            Game.LogTrivial($"EnableExampleFeature saved as {EnableExampleFeature}");
         }
     }
 }
